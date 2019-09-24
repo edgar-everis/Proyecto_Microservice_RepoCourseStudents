@@ -10,7 +10,8 @@ import reactor.core.publisher.Flux;
 
 @Repository
 public interface RepoCourseStundetsRepository extends ReactiveMongoRepository<RepoCourseStudents, String> {
-    Flux<RepoCourseStudents> findByIdstudentAndCondition(String idstudent, String condition);
+    
+	Flux<RepoCourseStudents> findByIdstudentAndCondition(String idstudent, String condition);
 
     Flux<RepoCourseStudents> findByIdstudentAndStatus(String idstudent, String status);
 

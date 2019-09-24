@@ -2,8 +2,16 @@ package com.main.expose;
 
 import com.main.model.RepoCourseStudents;
 import com.main.service.RepoCourseStudentsService;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,9 +29,15 @@ import reactor.core.publisher.Mono;
 @RequestMapping("/API/Report1")
 public class ControllerRepoCourseStudents {
 
+	private static Logger log = LoggerFactory.getLogger(ControllerRepoCourseStudents.class);
+	
+	
     @Autowired
     private RepoCourseStudentsService reposervice;
 
+    @Value("${Configuracion.texto}")
+    private String texto;
+    
     @GetMapping
     public Flux<RepoCourseStudents> Getall() {
         return reposervice.GetAll();
@@ -64,4 +78,16 @@ public class ControllerRepoCourseStudents {
     public Mono<Void> deleteCourseStudents(@PathVariable String id) {
         return reposervice.DeleteById(id);
     }
+    
+    @GetMapping("/Obtener-config")
+    public ResponseEntity<?> Obtnerconfig(@Value("${server.port}") String puerto)
+    {
+    	log.info(texto);
+    	Map< String,String> json = new HashMap<>();
+    	json.put("texto", texto);
+		return new ResponseEntity<Map< String,String>>(json, HttpStatus.OK);
+    	
+    }
+    
+    
 }
