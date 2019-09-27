@@ -6,63 +6,61 @@ import org.springframework.stereotype.Service;
 import com.main.model.RepoCourseStudents;
 import com.main.repository.RepoCourseStundetsRepository;
 import com.main.service.RepoCourseStudentsService;
+
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Service
 public class RepoCourseStudentsImpl implements RepoCourseStudentsService {
 
-    @Autowired
-    private RepoCourseStundetsRepository repository;
+  @Autowired private RepoCourseStundetsRepository repository;
 
-    @Override
-    public Flux<RepoCourseStudents> GetAll() {
+  @Override
+  public Mono<RepoCourseStudents> CreateRepocourseStudents(RepoCourseStudents repocourse) {
 
-        return repository.findAll();
-    }
+    return repository.save(repocourse);
+  }
 
-    @Override
-    public Mono<RepoCourseStudents> findById(String id) {
+  @Override
+  public Mono<Void> DeleteById(String id) {
 
-        return repository.findById(id);
-    }
+    return repository.deleteById(id);
+  }
 
-    @Override
-    public Mono<RepoCourseStudents> CreateRepocourseStudents(RepoCourseStudents repocourse) {
+  @Override
+  public Mono<RepoCourseStudents> findById(String id) {
 
-        return repository.save(repocourse);
-    }
+    return repository.findById(id);
+  }
 
-    @Override
+  @Override
+  public Flux<RepoCourseStudents> findByIdstudent(String idstudent) {
 
-    public Mono<RepoCourseStudents> ModifyStudent(String id, RepoCourseStudents repocourse) {
+    return repository.findByIdstudent(idstudent);
+  }
 
-        repocourse.setId(id);
-        return repository.save(repocourse);
-    }
+  @Override
+  public Flux<RepoCourseStudents> findByIdstudentAndCondition(String idstudent, String condition) {
 
-    @Override
-    public Mono<Void> DeleteById(String id) {
+    return repository.findByIdstudentAndCondition(idstudent, condition);
+  }
 
-        return repository.deleteById(id);
-    }
+  @Override
+  public Flux<RepoCourseStudents> findByIdstudentAndStatus(String idstudent, String status) {
 
-    @Override
-    public Flux<RepoCourseStudents> findByIdstudent(String idstudent) {
+    return repository.findByIdstudentAndStatus(idstudent, status);
+  }
 
-        return repository.findByIdstudent(idstudent);
-    }
+  @Override
+  public Flux<RepoCourseStudents> GetAll() {
 
-    @Override
-    public Flux<RepoCourseStudents> findByIdstudentAndStatus(String idstudent, String status) {
+    return repository.findAll();
+  }
 
-        return repository.findByIdstudentAndStatus(idstudent, status);
-    }
+  @Override
+  public Mono<RepoCourseStudents> ModifyStudent(String id, RepoCourseStudents repocourse) {
 
-    @Override
-    public Flux<RepoCourseStudents> findByIdstudentAndCondition(String idstudent, String condition) {
-
-        return repository.findByIdstudentAndCondition(idstudent, condition);
-    }
-
+    repocourse.setId(id);
+    return repository.save(repocourse);
+  }
 }

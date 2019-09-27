@@ -7,20 +7,19 @@ import reactor.core.publisher.Mono;
 
 public interface RepoCourseStudentsService {
 
-    Flux<RepoCourseStudents> findByIdstudentAndCondition(String idstudent, String condition);
+  Mono<RepoCourseStudents> CreateRepocourseStudents(RepoCourseStudents repocourse);
 
-    Flux<RepoCourseStudents> findByIdstudentAndStatus(String idstudent, String status);
+  Mono<Void> DeleteById(String id);
 
-    Flux<RepoCourseStudents> findByIdstudent(String idstudent);
+  Mono<RepoCourseStudents> findById(String id);
 
-    Flux<RepoCourseStudents> GetAll();
+  Flux<RepoCourseStudents> findByIdstudent(String idstudent);
 
-    Mono<RepoCourseStudents> findById(String id);
+  Flux<RepoCourseStudents> findByIdstudentAndCondition(String idstudent, String condition);
 
-    Mono<RepoCourseStudents> CreateRepocourseStudents(RepoCourseStudents repocourse);
+  Flux<RepoCourseStudents> findByIdstudentAndStatus(String idstudent, String status);
 
-    Mono<RepoCourseStudents> ModifyStudent(String id, RepoCourseStudents repocourse);
+  Flux<RepoCourseStudents> GetAll();
 
-    Mono<Void> DeleteById(String id);
-
+  Mono<RepoCourseStudents> ModifyStudent(String id, RepoCourseStudents repocourse);
 }
